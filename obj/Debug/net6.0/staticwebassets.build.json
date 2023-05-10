@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "qTNIZPoafCetKgCMreN1F5jPqbD1S8tQkzc2P5b4PFA=",
+  "Source": "attendaceAppWebApi",
+  "BasePath": "_content/attendaceAppWebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

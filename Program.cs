@@ -1,4 +1,5 @@
 
+using attendaceAppWebApi.Helpers;
 using attendaceAppWebApi.Interfaces;
 using attendaceAppWebApi.Models;
 using attendaceAppWebApi.Repositories;
@@ -19,9 +20,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 // Add repository and service interfaces
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<ICollegeRepository, CollegeRepository>();
 
 // Add JWT authentication
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

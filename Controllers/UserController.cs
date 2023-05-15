@@ -23,15 +23,15 @@ namespace attendaceAppWebApi.Controllers
             if (await _userRepository.UserExists(userForRegistrationDto.Username))
                 return BadRequest("Username already exists");
 
-            // Create new user object
-            var user = new User
-            {
-                Username = userForRegistrationDto.Username,
-                RoleId = userForRegistrationDto.RoleId
-            };
+            //// Create new user object
+            //var user = new User
+            //{
+            //    Username = userForRegistrationDto.Username,
+            //    RoleId = userForRegistrationDto.RoleId
+            //};
 
             // Register user with repository
-            var registeredUser = await _userRepository.Register(user, userForRegistrationDto.Password);
+            var registeredUser = await _userRepository.Register(userForRegistrationDto);
 
             // Return successful response
             return StatusCode(201);

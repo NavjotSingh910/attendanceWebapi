@@ -1,5 +1,7 @@
-﻿using attendaceAppWebApi.Interfaces;
+﻿using attendaceAppWebApi.DTOs;
+using attendaceAppWebApi.Interfaces;
 using attendaceAppWebApi.Models;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,23 +18,28 @@ namespace attendaceAppWebApi.Repositories
     {
         private readonly MyDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public UserRepository(MyDbContext context, IConfiguration config)
+        public UserRepository(MyDbContext context, IConfiguration config,IMapper mapper )
         {
             _context = context;
             _config = config;
+            _mapper = mapper;
         }
 
-        public async Task<User> Register(User user, string password)
+        public async Task<User> Register(UserRegistrationDto userRegistrationDto)
         {
             byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
-
+            CreatePasswordHash(userRegistrationDto.Password, out passwordHash, out passwordSalt);
+            User user =new User();
+            user= _mapper.Map<User>(userRegistrationDto);
             user.PasswordHash = Convert.ToBase64String(passwordHash);
             user.PasswordSalt = Convert.ToBase64String(passwordSalt);
+          
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+
 
             return user;
         }

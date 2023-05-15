@@ -1,13 +1,8 @@
 ﻿using attendaceAppWebApi.DTOs;
 using attendaceAppWebApi.Interfaces;
-using attendaceAppWebApi.Models;
 using attendanceAppWebApi.DTOs;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace attendaceAppWebApi.Controllers
 {
@@ -41,47 +36,26 @@ namespace attendaceAppWebApi.Controllers
         {
 
             var student = await _studentRepository.GetStudentByIdAsync(id);           
-            if (student == null)
-                return NotFound();
-            var studentShowDtos = _mapper.Map<IEnumerable<StudentShowDto>>(student);
-            return Ok(studentShowDtos);
+            
+            return Ok(student);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddStudent(StudentRegisterDto studentRegisterDto)
         {
-            UserRegistrationDto userForRegistrationDto=new UserRegistrationDto();
-            userForRegistrationDto = _mapper.Map<UserRegistrationDto>(studentRegisterDto);
-            userForRegistrationDto.RoleId = 3;
-            if (await _userRepository.UserExists(userForRegistrationDto.Username))
+            
+            if (await _userRepository.UserExists(studentRegisterDto.Username))
                 return BadRequest("Username already exists");
 
-            // Create new user object
-            var user = new User
-            {
-                Username = userForRegistrationDto.Username,
-                RoleId = userForRegistrationDto.RoleId
-            };
 
-            // Register user with repository
-            var registeredUser = await _userRepository.Register(user, userForRegistrationDto.Password);
-
-
-
-            Student student = _mapper.Map<Student>(studentRegisterDto);
-            student.UserId=registeredUser.UserId;
-            
-
-            await _studentRepository.AddStudentAsync(student);
-
-            return CreatedAtAction(nameof(GetStudentById), new { id = student.StudentId }, student);
+            return await _studentRepository.AddStudentAsync(studentRegisterDto);
         }
 
        
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteStudent(int RollNumber)
         {
-            var existingStudent = await _studentRepository.GetStudentByIdAsync(RollNumber);
+            var existingStudent = await _studentRepository.GetStudentByRollNumberAsync(RollNumber);
 
             if (existingStudent == null)
             {
@@ -92,5 +66,6 @@ namespace attendaceAppWebApi.Controllers
 
             return NoContent();
         }
+
     }
 }

@@ -40,6 +40,7 @@ namespace attendaceAppWebApi.DTOs
         [Required]
         [StringLength(10)]
         public string ZipCode { get; set; }
+        public int? RollNumber { get; set; }
 
         [Required]
         public DateTime EnrollmentDate { get; set; }

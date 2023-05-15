@@ -86,6 +86,5 @@ D:\code\New folder\attendaceAppWebApi\obj\Debug\net6.0\refint\attendaceAppWebApi
 D:\code\New folder\attendaceAppWebApi\obj\Debug\net6.0\attendaceAppWebApi.pdb
 D:\code\New folder\attendaceAppWebApi\obj\Debug\net6.0\attendaceAppWebApi.genruntimeconfig.cache
 D:\code\New folder\attendaceAppWebApi\obj\Debug\net6.0\ref\attendaceAppWebApi.dll
-D:\code\New folder\attendaceAppWebApi\bin\Debug\net6.0\libman.json
 D:\code\New folder\attendaceAppWebApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\code\New folder\attendaceAppWebApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
